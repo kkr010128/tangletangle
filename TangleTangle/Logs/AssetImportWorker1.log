@@ -290,3 +290,19 @@ Received Import Request.
 Start importing Assets/Prefab/6_Apple_0.prefab using Guid(b9a482058a6264852b89ff35d39cf36c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'aa8d13f8430405ba86535d9cdf5ca5cd') in 0.004525916 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 9
 
+========================================================================
+Received Import Request.
+  Time since last request: 1495.832864 seconds.
+  path: Assets/Scenes/GameScene_.unity
+  artifactKey: Guid(8c9cfa26abfee488c85f1582747f6a02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/GameScene_.unity using Guid(8c9cfa26abfee488c85f1582747f6a02) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '1b7c95f9dd6eeed99f701ecd09f03afa') in 0.003807041 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.333240 seconds.
+  path: Assets/Scenes/GameScene__.unity
+  artifactKey: Guid(8c9cfa26abfee488c85f1582747f6a02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/GameScene__.unity using Guid(8c9cfa26abfee488c85f1582747f6a02) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '5bcd03cc924e760d0852ff3cb0e5ccf0') in 0.000365083 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
