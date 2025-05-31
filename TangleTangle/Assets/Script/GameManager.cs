@@ -16,25 +16,31 @@ public class GameManager : MonoBehaviour
 
     public AudioClip mergeSound;
     public AudioClip itemGetSound;
+    public AudioClip bgmGameOver;
+
+    public AudioSource inGameBGM; // 기존 BGM AudioSource 연결
     private AudioSource audioSource;
+    private AudioSource bgmSource;
 
     void Awake()
     {
         Instance = this;
 
-        unlockedLevels.Add(1);
-        unlockedLevels.Add(2);
-        unlockedLevels.Add(3);
+        unlockedLevels = new List<int> { 1, 2, 3, 4, 5 };
 
         RecalculateWeights();
 
         audioSource = GetComponent<AudioSource>();
+        bgmSource = gameObject.AddComponent<AudioSource>();
+        bgmSource.loop = true;
+        bgmSource.playOnAwake = false;
     }
 
     public void OnFruitMerged(FruitType newType, string ownerTag)
     {
         int level = (int)newType;
-        if (!unlockedLevels.Contains(level))
+
+        if (level <= 5 && !unlockedLevels.Contains(level))
         {
             unlockedLevels.Add(level);
             RecalculateWeights();
@@ -44,9 +50,6 @@ public class GameManager : MonoBehaviour
         if (ownerTag == "PlayerA") scoreA += gain;
         else if (ownerTag == "PlayerB") scoreB += gain;
 
-        if (mergeSound != null && audioSource != null)
-            audioSource.PlayOneShot(mergeSound);
-
         var inventories = FindObjectsByType<PlayerItemInventory>(FindObjectsSortMode.None);
         PlayerItemInventory target = inventories.FirstOrDefault(inv => inv.playerTag == ownerTag);
 
@@ -54,24 +57,15 @@ public class GameManager : MonoBehaviour
         {
             switch (newType)
             {
-                case FruitType.Peach:
-                    target.AddItem(ItemType.Rock);
-                    PlayItemGetSound();
-                    break;
-                case FruitType.Pear:
-                    target.AddItem(ItemType.Dynamite);
-                    PlayItemGetSound();
-                    break;
-                case FruitType.Persimmon:
-                    target.AddItem(ItemType.Fertilizer);
-                    PlayItemGetSound();
-                    break;
-                case FruitType.Apple:
-                    target.AddItem(ItemType.Pesticide);
-                    PlayItemGetSound();
-                    break;
+                case FruitType.Peach: target.AddItem(ItemType.Rock); PlayItemGetSound(); break;
+                case FruitType.Pear: target.AddItem(ItemType.Dynamite); PlayItemGetSound(); break;
+                case FruitType.Persimmon: target.AddItem(ItemType.Fertilizer); PlayItemGetSound(); break;
+                case FruitType.Apple: target.AddItem(ItemType.Pesticide); PlayItemGetSound(); break;
             }
         }
+
+        if (mergeSound != null && audioSource != null)
+            audioSource.PlayOneShot(mergeSound);
     }
 
     private void PlayItemGetSound()
@@ -116,31 +110,11 @@ public class GameManager : MonoBehaviour
     {
         spawnWeights.Clear();
 
-        int maxLevel = unlockedLevels.Max();
-
-        if (maxLevel <= 3)
-        {
-            spawnWeights[FindFruitDataByLevel(1)] = 50f;
-            spawnWeights[FindFruitDataByLevel(2)] = 35f;
-            spawnWeights[FindFruitDataByLevel(3)] = 15f;
-            return;
-        }
-
-        float center = 1f + (maxLevel - 1f) / 2f;
-        float sigma = 2.0f;
-
-        foreach (int level in unlockedLevels)
-        {
-            FruitData data = FindFruitDataByLevel(level);
-            if (data == null) continue;
-
-            float raw = Mathf.Exp(-0.5f * Mathf.Pow((level - center) / sigma, 2));
-            spawnWeights[data] = raw;
-        }
-
-        float sum = spawnWeights.Values.Sum();
-        foreach (var key in spawnWeights.Keys.ToList())
-            spawnWeights[key] = (spawnWeights[key] / sum) * 100f;
+        spawnWeights[FindFruitDataByLevel(5)] = 35f; // 체리
+        spawnWeights[FindFruitDataByLevel(4)] = 30f; // 딸기
+        spawnWeights[FindFruitDataByLevel(3)] = 22.5f; // 포도
+        spawnWeights[FindFruitDataByLevel(2)] = 7.5f; // 오렌지
+        spawnWeights[FindFruitDataByLevel(1)] = 5f; // 감귤
     }
 
     private FruitData FindFruitDataByLevel(int level)
@@ -157,5 +131,14 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game Over! " + playerName + " 패배");
         Time.timeScale = 0f;
+
+        if (inGameBGM != null)
+            inGameBGM.Stop();
+
+        if (bgmGameOver != null && bgmSource != null)
+        {
+            bgmSource.clip = bgmGameOver;
+            bgmSource.Play();
+        }
     }
 }
