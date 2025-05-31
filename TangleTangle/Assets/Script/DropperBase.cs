@@ -8,7 +8,7 @@ public abstract class DropperBase : MonoBehaviour
 
     protected FruitData nextFruit;
 
-    private float dropCooldown = 1.0f;
+        [SerializeField] protected float dropCooldown = 1.0f;
     private float lastDropTime = -999f;
 
     protected virtual void Start()

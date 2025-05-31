@@ -128,17 +128,22 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver(string playerName)
-    {
-        Debug.Log("Game Over! " + playerName + " 패배");
-        Time.timeScale = 0f;
+{
+    Debug.Log("Game Over! " + playerName + " 패배");
+    Time.timeScale = 0f;
 
-        if (inGameBGM != null)
-            inGameBGM.Stop();
+    if (inGameBGM != null)
+        inGameBGM.Stop();
 
-        if (bgmGameOver != null && bgmSource != null)
-        {
-            bgmSource.clip = bgmGameOver;
-            bgmSource.Play();
-        }
-    }
+    if (bgmGameOver != null && bgmSource != null)
+{
+    bgmSource.loop = false; // 반복 재생 끄기
+    bgmSource.clip = bgmGameOver;
+    bgmSource.Play();
+}
+
+    // 결과창 표시
+    string winner = (playerName == "Player 1") ? "Player 2" : "Player 1";
+    ResultUIManager.Instance.ShowResult(winner, scoreA, scoreB);
+}
 }
