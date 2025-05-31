@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6337876061799942285}
   - component: {fileID: 7681705846426636821}
   - component: {fileID: 7462052499588987050}
+  - component: {fileID: -3770204426569896940}
+  - component: {fileID: 578809561511125978}
   m_Layer: 0
   m_Name: 6_Apple_0
   m_TagString: Untagged
@@ -163,3 +165,44 @@ CapsuleCollider2D:
   m_Offset: {x: 1.4955068, y: 2.015238}
   m_Size: {x: 3.5866148, y: 4.520477}
   m_Direction: 0
+--- !u!114 &-3770204426569896940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6876073166524167695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50184ecfec6d64258a2f45a9323df33a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 6
+  hasMerged: 0
+--- !u!50 &578809561511125978
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6876073166524167695}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
