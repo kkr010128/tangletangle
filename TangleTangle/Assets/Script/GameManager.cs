@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     public int scoreA = 0;
     public int scoreB = 0;
 
+    public AudioClip mergeSound;
+    public AudioClip itemGetSound;
+    private AudioSource audioSource;
+
     void Awake()
     {
         Instance = this;
@@ -23,6 +27,8 @@ public class GameManager : MonoBehaviour
         unlockedLevels.Add(3);
 
         RecalculateWeights();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void OnFruitMerged(FruitType newType, string ownerTag)
@@ -38,6 +44,9 @@ public class GameManager : MonoBehaviour
         if (ownerTag == "PlayerA") scoreA += gain;
         else if (ownerTag == "PlayerB") scoreB += gain;
 
+        if (mergeSound != null && audioSource != null)
+            audioSource.PlayOneShot(mergeSound);
+
         var inventories = FindObjectsByType<PlayerItemInventory>(FindObjectsSortMode.None);
         PlayerItemInventory target = inventories.FirstOrDefault(inv => inv.playerTag == ownerTag);
 
@@ -45,12 +54,30 @@ public class GameManager : MonoBehaviour
         {
             switch (newType)
             {
-                case FruitType.Peach: target.AddItem(ItemType.Rock); break;
-                case FruitType.Pear: target.AddItem(ItemType.Dynamite); break;
-                case FruitType.Persimmon: target.AddItem(ItemType.Fertilizer); break;
-                case FruitType.Apple: target.AddItem(ItemType.Pesticide); break;
+                case FruitType.Peach:
+                    target.AddItem(ItemType.Rock);
+                    PlayItemGetSound();
+                    break;
+                case FruitType.Pear:
+                    target.AddItem(ItemType.Dynamite);
+                    PlayItemGetSound();
+                    break;
+                case FruitType.Persimmon:
+                    target.AddItem(ItemType.Fertilizer);
+                    PlayItemGetSound();
+                    break;
+                case FruitType.Apple:
+                    target.AddItem(ItemType.Pesticide);
+                    PlayItemGetSound();
+                    break;
             }
         }
+    }
+
+    private void PlayItemGetSound()
+    {
+        if (itemGetSound != null && audioSource != null)
+            audioSource.PlayOneShot(itemGetSound, 3f);
     }
 
     public void CheckItemDrop(FruitType type, string playerTag)
