@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4313293631372748610}
   m_Layer: 0
   m_Name: 6_Apple_0
-  m_TagString: Untagged
+  m_TagString: Fruit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50184ecfec6d64258a2f45a9323df33a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerTag: 
   type: 6
   hasMerged: 0
 --- !u!50 &578809561511125978

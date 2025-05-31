@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Fruit : MonoBehaviour
 {
+    public string ownerTag;
+    
     public FruitType type;
     [HideInInspector] public bool hasMerged = false;
 

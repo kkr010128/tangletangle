@@ -8,6 +8,10 @@ TagManager:
   - PlayerB
   - GameOverA
   - GameOverB
+  - Rock
+  - Poison
+  - Dynamite
+  - Booster
   layers:
   - Default
   - TransparentFX

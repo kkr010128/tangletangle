@@ -29,7 +29,25 @@ public class MergeManager : MonoBehaviour
         Instantiate(newFruitPrefab, spawnPos, Quaternion.identity);
         Destroy(a.gameObject);
         Destroy(b.gameObject);
-        GameManager.Instance.OnFruitMerged(newType);
+
+        // ✅ ownerTag 전달
+        string ownerTag = a.GetComponent<FruitCollision>()?.ownerTag ?? "Unknown";
+        GameManager.Instance.OnFruitMerged(newType, ownerTag);
+    }
+
+    public void SpawnFruit(FruitType type, Vector3 position, string ownerTag)
+    {
+        GameObject prefab = GetFruitPrefab(type);
+        if (prefab == null)
+        {
+            Debug.LogWarning("MergeManager: No prefab for type " + type);
+            return;
+        }
+
+        GameObject go = Instantiate(prefab, position, Quaternion.identity);
+        var collision = go.GetComponent<FruitCollision>();
+        if (collision != null)
+            collision.ownerTag = ownerTag;
     }
 
     GameObject GetFruitPrefab(FruitType type)

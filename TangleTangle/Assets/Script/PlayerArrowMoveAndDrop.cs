@@ -3,6 +3,13 @@ using UnityEngine;
 public class PlayerArrowMoveAndDrop : DropperBase
 {
     public float moveSpeed = 5f;
+    private PlayerItemInventory inventory;
+
+    protected override void Start()
+    {
+        base.Start();
+        inventory = GetComponent<PlayerItemInventory>();
+    }
 
     void Update()
     {
@@ -13,8 +20,9 @@ public class PlayerArrowMoveAndDrop : DropperBase
         transform.position += new Vector3(move, 0, 0) * moveSpeed * Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            DropFruit(); // DropperBase에 정의된 확률 기반 드롭
-        }
+            DropFruit();
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+            inventory?.UseNextItem(); // 아이템 사용
     }
 }
