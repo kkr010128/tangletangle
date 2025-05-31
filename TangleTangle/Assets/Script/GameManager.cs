@@ -49,36 +49,36 @@ public class GameManager : MonoBehaviour
     }
 
     private void RecalculateWeights()
-{
-    spawnWeights.Clear();
-
-    int maxLevel = unlockedLevels.Max();
-
-    if (maxLevel <= 3)
     {
-        spawnWeights[FindFruitDataByLevel(1)] = 50f;
-        spawnWeights[FindFruitDataByLevel(2)] = 35f;
-        spawnWeights[FindFruitDataByLevel(3)] = 15f;
-        return;
+        spawnWeights.Clear();
+
+        int maxLevel = unlockedLevels.Max();
+
+        if (maxLevel <= 3)
+        {
+            spawnWeights[FindFruitDataByLevel(1)] = 50f;
+            spawnWeights[FindFruitDataByLevel(2)] = 35f;
+            spawnWeights[FindFruitDataByLevel(3)] = 15f;
+            return;
+        }
+
+        // 정규분포로 확장
+        float center = 1f + (maxLevel - 1f) / 2f;
+        float sigma = 2.0f;
+
+        foreach (int level in unlockedLevels)
+        {
+            FruitData data = FindFruitDataByLevel(level);
+            if (data == null) continue;
+
+            float raw = Mathf.Exp(-0.5f * Mathf.Pow((level - center) / sigma, 2));
+            spawnWeights[data] = raw;
+        }
+
+        float sum = spawnWeights.Values.Sum();
+        foreach (var key in spawnWeights.Keys.ToList())
+            spawnWeights[key] = (spawnWeights[key] / sum) * 100f;
     }
-
-    // 정규분포로 확장
-    float center = 1f + (maxLevel - 1f) / 2f;
-    float sigma = 2.0f;
-
-    foreach (int level in unlockedLevels)
-    {
-        FruitData data = FindFruitDataByLevel(level);
-        if (data == null) continue;
-
-        float raw = Mathf.Exp(-0.5f * Mathf.Pow((level - center) / sigma, 2));
-        spawnWeights[data] = raw;
-    }
-
-    float sum = spawnWeights.Values.Sum();
-    foreach (var key in spawnWeights.Keys.ToList())
-        spawnWeights[key] = (spawnWeights[key] / sum) * 100f;
-}
 
     private FruitData FindFruitDataByLevel(int level)
     {
@@ -88,5 +88,13 @@ public class GameManager : MonoBehaviour
                 return data;
         }
         return null;
+    }
+
+    // ✅ 추가된 게임 오버 처리 함수
+    public void GameOver(string playerName)
+    {
+        Debug.Log("Game Over! " + playerName + " 패배");
+
+        Time.timeScale = 0f; // 일시정지 (필요 시 UI, 리셋 등 확장 가능)
     }
 }

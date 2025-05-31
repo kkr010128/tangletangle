@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7662761210898620766}
   - component: {fileID: -136049295238165035}
   - component: {fileID: -5469994718214081866}
+  - component: {fileID: -985233187865442864}
   m_Layer: 0
   m_Name: 4_Mandarin_0
   m_TagString: Untagged
@@ -168,3 +169,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-985233187865442864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421877563244434739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1657fb0fb34143b49e1e7d549edac09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerTag: 

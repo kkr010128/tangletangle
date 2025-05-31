@@ -23,7 +23,14 @@ public abstract class DropperBase : MonoBehaviour
         if (nextFruit == null || nextFruit.prefab == null)
             return;
 
-        Instantiate(nextFruit.prefab, dropPoint.position, Quaternion.identity);
+        // 과일 생성
+        GameObject fruit = Instantiate(nextFruit.prefab, dropPoint.position, Quaternion.identity);
+
+        // ownerTag 설정 (GameOver 판정용)
+        FruitCollision fc = fruit.GetComponent<FruitCollision>();
+        if (fc != null)
+            fc.ownerTag = this.tag; // 이 Dropper의 태그를 과일에 전달 ("PlayerA" 또는 "PlayerB")
+
         lastDropTime = Time.time;
         UpdateNextFruit();
     }
