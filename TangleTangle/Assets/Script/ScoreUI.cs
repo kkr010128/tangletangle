@@ -8,7 +8,7 @@ public class ScoreUI : MonoBehaviour
 
     void Update()
     {
-        scoreTextA.text = "Player1 Score: " + GameManager.Instance.scoreA;
-        scoreTextB.text = "Player2 Score: " + GameManager.Instance.scoreB;
+        scoreTextA.text = "SCORE: " + GameManager.Instance.scoreA;
+        scoreTextB.text = "SCORE: " + GameManager.Instance.scoreB;
     }
 }

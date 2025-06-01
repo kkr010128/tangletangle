@@ -12,6 +12,7 @@ TagManager:
   - Poison
   - Dynamite
   - Booster
+  - Fruit
   layers:
   - Default
   - TransparentFX
@@ -48,6 +49,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: backgound
+    uniqueID: 202861375
+    locked: 0
+  - name: UI
+    uniqueID: 4087696435
     locked: 0
   m_RenderingLayers:
   - Default

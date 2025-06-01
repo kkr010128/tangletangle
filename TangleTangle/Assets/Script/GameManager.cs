@@ -55,13 +55,12 @@ public class GameManager : MonoBehaviour
 
         if (target != null)
         {
-            switch (newType)
-            {
-                case FruitType.Peach: target.AddItem(ItemType.Rock); PlayItemGetSound(); break;
-                case FruitType.Pear: target.AddItem(ItemType.Dynamite); PlayItemGetSound(); break;
-                case FruitType.Persimmon: target.AddItem(ItemType.Fertilizer); PlayItemGetSound(); break;
-                case FruitType.Apple: target.AddItem(ItemType.Pesticide); PlayItemGetSound(); break;
-            }
+            ItemType[] possibleItems = new ItemType[] {
+                ItemType.Rock, ItemType.Dynamite, ItemType.Fertilizer, ItemType.Pesticide
+            };
+            int randomIndex = Random.Range(0, possibleItems.Length);
+            target.AddItem(possibleItems[randomIndex]);
+            PlayItemGetSound();
         }
 
         if (mergeSound != null && audioSource != null)
@@ -143,7 +142,7 @@ public class GameManager : MonoBehaviour
 }
 
     // 결과창 표시
-    string winner = (playerName == "Player 1") ? "Player 2" : "Player 1";
+    string winner = (playerName == "1P") ? "2P" : "1P"; // 
     ResultUIManager.Instance.ShowResult(winner, scoreA, scoreB);
 }
 }
