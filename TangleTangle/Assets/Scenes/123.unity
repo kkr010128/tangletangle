@@ -3034,7 +3034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropPoint: {fileID: 787229836}
   nextFruitPreview: {fileID: 114294129}
-  dropCooldown: 0
+  dropCooldown: 1
   moveSpeed: 5
 --- !u!114 &822806997
 MonoBehaviour:
